@@ -2,32 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Create voting - Voting System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/740f30b949.js"></script>
+    <title>Create voting — Voting System</title>
 </head>
 <body>
-<h1>Create voting</h1>
-<a th:href="@{/}">Go back to list</a>
-<form th:action="@{/voting/create}" th:object="${voting}" method="post">
-    <input type="hidden" th:field="*{userId}" th:value="${voting.userId}">
-    <div>
-        <label for="voting-title">Title</label>
-        <input id="voting-title" type="text" th:field="*{title}" placeholder="Title">
-    </div>
-    <div>
-        <label for="voting-active">Active</label>
-        <input id="voting-active" type="checkbox" th:field="*{active}">
-    </div>
-    <div>
-        <label for="voting-start">Active</label>
-        <input id="voting-start" type="date" th:field="*{startDate}" placeholder="Start date">
-    </div>
-    <div>
-        <label for="voting-end">Active</label>
-        <input id="voting-end" type="date" th:field="*{endDate}" placeholder="End date">
-    </div>
-    <div>
-        <input type="submit" value="Create voting">
-    </div>
-</form>
+<div class="container py-4">
+    <a th:href="@{/}">← Back to home</a>
+    <h1 class="mt-3">Create voting</h1>
+    <form class="mt-3 col-sm-6" th:action="@{/voting/create}" th:object="${voting}" method="post">
+        <input type="hidden" th:field="*{userId}" th:value="${voting.userId}">
+        <div class="form-floating mb-3">
+            <input id="voting-title" class="form-control" type="text" th:field="*{title}" placeholder="Title">
+            <label for="voting-title" class="form-label">Title</label>
+        </div>
+        <div class="form-check mb-3">
+            <input id="voting-active" class="form-check-input" type="checkbox" th:field="*{active}">
+            <label for="voting-active" class="form-check-label">Active</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input id="voting-start" class="form-control" type="date" th:field="*{startDate}" placeholder="Start date">
+            <label for="voting-start" class="form-label">Active</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input id="voting-end" class="form-control" type="date" th:field="*{endDate}" placeholder="End date">
+            <label for="voting-end" class="form-label">Active</label>
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Create voting</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

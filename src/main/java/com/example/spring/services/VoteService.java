@@ -27,7 +27,7 @@ public class VoteService implements IVoteService {
     }
 
     @Override
-    public List<Vote> getByVotingAndUser(int votingId, int userId) {
+    public Vote getByVotingAndUser(int votingId, int userId) {
         List<Candidate> candidates = candidateRepository.getByVoting(votingId);
         return voteRepository.getByCandidatesAndUser(candidates, userId);
     }
