@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +36,9 @@ public class VotingController {
         User user = (User) session.getAttribute("user");
         Voting voting = votingService.getWithCandidates(id);
         model.addAttribute("voting", voting);
-        boolean isVoted = !voteService.getByVotingAndUser(voting.getId(), user.getId()).isEmpty();
+        Vote vote = voteService.getByVotingAndUser(voting.getId(), user.getId());
+        model.addAttribute("vote", vote);
+        boolean isVoted = vote != null;
         model.addAttribute("isVoted", isVoted);
         return "voting";
     }
@@ -103,6 +107,7 @@ public class VotingController {
         Voting voting = votingService.getWithCandidates(id);
         model.addAttribute("voting", voting);
         List<Vote> votes = voteService.getByVoting(voting.getId());
+        model.addAttribute("votes", votes);
         List<Candidate> candidates = voting.getCandidates().stream()
                 .peek(candidate -> {
                     candidate.setVotes(votes.stream()
@@ -112,7 +117,17 @@ public class VotingController {
                 })
                 .collect(Collectors.toList());
         model.addAttribute("candidates", candidates);
-        model.addAttribute("votes", votes);
+        Candidate winner = candidates.stream()
+                .sorted(Comparator.comparingInt(c -> c.getVotes().size()))
+                .reduce(null, (acc, c) -> {
+                    if (c.getVotes().isEmpty()) return acc;
+                    if (acc == null) return c;
+                   if (c.getVotes().size() > acc.getVotes().size()) {
+                       return c;
+                   }
+                   return acc;
+                });
+        model.addAttribute("winner", winner);
         return "voting-results";
     }
 }

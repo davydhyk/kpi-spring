@@ -26,10 +26,11 @@ public class VoteRepository extends GenericRepository<Vote, Integer> implements 
     }
 
     @Override
-    public List<Vote> getByCandidatesAndUser(List<Candidate> candidates, int userId) {
+    public Vote getByCandidatesAndUser(List<Candidate> candidates, int userId) {
         return entitiesWithCandidates().stream()
                 .filter(vote -> candidates.contains(vote.getCandidate()) && vote.getUserId() == userId)
-                .collect(Collectors.toList());
+                .findFirst()
+                .orElse(null);
     }
 
     public List<Vote> entitiesWithCandidates() {

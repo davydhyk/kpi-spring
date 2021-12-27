@@ -99,6 +99,7 @@ public class Voting extends Model<Integer> {
                 ", title='" + title + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", active=" + active +
                 ", userId=" + userId +
                 '}';
     }
