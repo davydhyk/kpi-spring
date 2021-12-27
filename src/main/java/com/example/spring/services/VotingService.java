@@ -1,6 +1,7 @@
 package com.example.spring.services;
 
 import com.example.spring.models.Candidate;
+import com.example.spring.models.Pageable;
 import com.example.spring.models.Voting;
 import com.example.spring.repositories.interfaces.ICandidateRepository;
 import com.example.spring.repositories.interfaces.IVotingRepository;
@@ -18,6 +19,11 @@ public class VotingService implements IVotingService {
     public VotingService(IVotingRepository votingRepository, ICandidateRepository candidateRepository) {
         this.votingRepository = votingRepository;
         this.candidateRepository = candidateRepository;
+    }
+
+    @Override
+    public List<Voting> getAllPaged(Pageable pageable) {
+        return votingRepository.getAllPaged(pageable);
     }
 
     @Override

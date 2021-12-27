@@ -1,5 +1,6 @@
 package com.example.spring.repositories;
 
+import com.example.spring.models.Pageable;
 import com.example.spring.models.Voting;
 import com.example.spring.repositories.interfaces.IVotingRepository;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,13 @@ public class VotingRepository extends GenericRepository<Voting, Integer> impleme
                 2
         );
         this.create(voting1);
+    }
+
+    @Override
+    public List<Voting> getAllPaged(Pageable pageable) {
+        return entities.values().stream()
+                .skip(pageable.getOffset())
+                .collect(Collectors.toList());
     }
 
     @Override
