@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create voting - Voting System</title>
+</head>
+<body>
+<h1>Create voting</h1>
+<a th:href="@{/}">Go back to list</a>
+<form th:action="@{/voting/create}" th:object="${voting}" method="post">
+    <input type="hidden" th:field="*{userId}" th:value="${voting.userId}">
+    <div>
+        <label for="voting-title">Title</label>
+        <input id="voting-title" type="text" th:field="*{title}" placeholder="Title">
+    </div>
+    <div>
+        <label for="voting-active">Active</label>
+        <input id="voting-active" type="checkbox" th:field="*{active}">
+    </div>
+    <div>
+        <label for="voting-start">Active</label>
+        <input id="voting-start" type="date" th:field="*{startDate}" placeholder="Start date">
+    </div>
+    <div>
+        <label for="voting-end">Active</label>
+        <input id="voting-end" type="date" th:field="*{endDate}" placeholder="End date">
+    </div>
+    <div>
+        <input type="submit" value="Create voting">
+    </div>
+</form>
+</body>
+</html>

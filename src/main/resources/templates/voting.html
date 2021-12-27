@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Voting System</title>
+</head>
+<body>
+<!--/*@thymesVar id="user" type="com.example.spring.models.User"*/-->
+<a th:href="@{/}">← Back to home</a>
+<h1 th:text="${voting.title}"></h1>
+<ul>
+    <li>Active: <span th:text="${voting.active}"></span></li>
+    <li>Start date: <span th:text="${voting.startDate}"></span></li>
+    <li>End date: <span th:text="${voting.endDate}"></span></li>
+</ul>
+<a th:if="${voting.userId == user.id}" th:href="@{/voting/{id}/candidate(id=${voting.id})}">Add candidate</a>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Controls</th>
+    </tr>
+    <tr th:each="candidate : ${voting.candidates}">
+        <td><span th:text="${candidate.id}">...</span></td>
+        <td><span th:text="${candidate.name}">...</span></td>
+        <td><span th:text="${candidate.description}">...</span></td>
+        <td>
+            <a th:if="${!isVoted}" th:href="@{/candidate/{id}/vote(id=${candidate.id})}">✅</a>
+            <a th:if="${voting.userId == user.id}" th:href="@{/candidate/{id}/delete(id=${candidate.id})}">🗑</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

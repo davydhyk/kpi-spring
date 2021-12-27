@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Voting System</title>
+</head>
+<body>
+<a th:href="@{/}">← Back to home</a>
+<h1>Results of voting:</h1>
+<div th:text="${voting.title}"></div>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Votes</th>
+        <th>%</th>
+    </tr>
+    <tr th:each="candidate : ${voting.candidates}">
+        <td><span th:text="${candidate.id}">...</span></td>
+        <td><span th:text="${candidate.name}">...</span></td>
+        <td><span th:text="${candidate.description}">...</span></td>
+        <td><span th:text="${candidate.votes.size()}">...</span></td>
+        <td th:if="${!votes.isEmpty()}">
+            <span th:text="${#numbers.formatPercent(1.0 * candidate.votes.size() / votes.size(), 1, 2)}">...</span>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

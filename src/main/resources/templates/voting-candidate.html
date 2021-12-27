@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Voting System</title>
+</head>
+<body>
+<h1>Add candidate for voting:</h1>
+<div th:text="${voting.title}"></div>
+<form th:action="@{/voting/{id}/candidate(id=${voting.id})}" th:object="${candidate}" method="post">
+    <input type="hidden" th:field="*{votingId}" th:value="${candidate.votingId}">
+    <div>
+        <label for="candidate-name">Name</label>
+        <input id="candidate-name" type="text" th:field="*{name}" placeholder="Name">
+    </div>
+    <div>
+        <label for="candidate-description">Description</label>
+        <textarea id="candidate-description" type="text" th:field="*{description}" placeholder="Description"></textarea>
+    </div>
+    <div>
+        <input type="submit" value="Add candidate">
+    </div>
+</form>
+</body>
+</html>
